@@ -14,12 +14,10 @@ class Polynomial:
 
     def reduce(self):
         self.monomials.sort(key=Monomial.degree_sort_key)
-        print(*self.monomials, sep=",")
         reduced_monomials = []
         while len(self.monomials) > 0:
             degree = self.monomials[0].degree
             monomials = [ m for m in self.monomials if m.degree == degree ]
-            print("Monomials: ", *monomials, sep=',')
             reduced_monomials.append(sum(monomials, start=Monomial(f"0*X^{degree}")))
             self.monomials = [ m for m in self.monomials if m.degree != degree ]
         self.monomials = reduced_monomials
@@ -32,8 +30,3 @@ class Polynomial:
 
     def getDegree(self):
         return max(self.monomials, key=Monomial.degree_sort_key).degree
-
-    def printAnswer(self):
-        print(f"Reduced form: {self.getReducedForm()}")
-        if self.solutions is not None:
-            print(f"Polynomial degree: {self.getDegree()}")
