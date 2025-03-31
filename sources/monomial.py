@@ -5,7 +5,12 @@ class Monomial:
         else:
             self.coefficient = 1
         if '^' in term:
-            self.degree = int(term.split('^')[-1])
+            try:
+                self.degree = int(term.split('^')[-1])
+                if self.degree < 0:
+                    raise TypeError("Exponent need to be a whole integer.")
+            except ValueError:
+                raise TypeError("Exponent need to be a whole integer.")
         else:
             self.degree = 0
 
