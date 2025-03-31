@@ -1,4 +1,5 @@
 import argparse
+from fractions import Fraction
 
 from polynomial import Polynomial
 
@@ -19,11 +20,14 @@ def printAnswer(polynomial):
     elif not solutions:
         print("No solution.")
     elif degree == 1:
+        print(f"Polynomial degree: {degree}")
         print(f"The solution is:\n{round(solutions[0], 6)}")
     elif degree == 2:
         print(f"Polynomial degree: {degree}")
         if discriminant < 0:
-            print(f"Discriminant is strictly negative, the two complex solutions are:\n{round(solutions[0].real, 6)} + {abs(round(solutions[0].imag, 6))}i\n{round(solutions[1].real, 6)} - {abs(round(solutions[1].imag, 6))}i")
+            real_part = Fraction(solutions[0].real).limit_denominator(100000)
+            imag_part = Fraction(abs(solutions[0].imag)).limit_denominator(100000)
+            print(f"Discriminant is strictly negative, the two complex solutions are:\n{real_part.numerator}/{real_part.denominator} + {imag_part.numerator}i/{imag_part.denominator}\n{real_part.numerator}/{real_part.denominator} - {imag_part.numerator}i/{imag_part.denominator}")
         elif discriminant == 0:
             print(f"Discriminant is zero, the solution is:\n{round(solutions[0], 6)}")
         else:
