@@ -23,6 +23,6 @@ class Monomial:
         return Monomial("0*X^0")
 
     def __str__(self):
-        if self.coefficient <= 0:
-            return f"- {abs(self.coefficient)} * X^{self.degree}"
-        return f"+ {self.coefficient} * X^{self.degree}"
+        if self.coefficient < 0 or self.coefficient is float(0):
+            return f"- {f"{abs(self.coefficient)}".rstrip("0").rstrip(".")} * X^{self.degree}"
+        return f"+ {f"{self.coefficient}".rstrip("0").rstrip(".")} * X^{self.degree}"
